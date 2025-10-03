@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="/FaviconLogo.png">
+    <title>Elleve</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script defer="defer" src="./js/chunk-vendors.dfd6fe20.js"></script>
+    <script defer="defer" src="./js/app.2dd36881.js"></script>
+</head>
+
+<body>
+    <div id="app" class="kit-colors-preto"></div>
+</body>
+<script>function scroolTo(id) {
+        const targetId = id;
+        const targetElement = document.querySelector('#' + targetId);
+
+        const offset = -50;
+        // const offset = -150;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset + offset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    }
+
+    // (function(){
+    //   emailjs.init("0TOx4WlUsOAUQgcwD"); // Substitua "seu_user_id" pelo seu user ID do EmailJS
+    // })();
+
+    (function () {
+        emailjs.init({
+            publicKey: "k7uhYL4EWtvYVm8-e",
+        });
+    })();
+
+    function validarEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    }
+
+    function validarTelefone(telefone) {
+        const regex = /^(?:\+?\d{1,3}\s?)?(?:\(?\d{2}\)?\s?)?\d{4,5}-?\d{4}$/;
+        return regex.test(telefone);
+    }
+
+    function enviarForm() {
+        var name = document.getElementById('your-name').value
+        var company = document.getElementById('your-company').value
+        var position = document.getElementById('your-position').value
+        var email = document.getElementById('your-email').value
+        // var country = document.getElementById('your-country').value
+        var number = document.getElementById('your-number').value
+        var message = document.getElementById('your-message').value
+
+        if (!name) {
+            alert("Preencha corretamente o campo nome!");
+            document.getElementById('your-name').focus()
+            return false;
+        }
+
+        if (!company) {
+            alert("Preencha corretamente o campo empresa!");
+            document.getElementById('your-company').focus()
+            return false;
+        }
+
+        if (!email && !validarEmail(email)) {
+            alert("Preencha corretamente o campo email!");
+            document.getElementById('your-email').focus()
+            return false;
+        }
+
+        // if(!country){
+        //   alert("Preencha corretamente o campo localização e país!");
+        //   document.getElementById('your-country').focus()
+        //   return false;
+        // }
+
+        if (!number && !validarTelefone(number)) {
+            alert("Preencha corretamente o campo telefone!");
+            document.getElementById('your-number').focus()
+            return false;
+        }
+
+        if (!message) {
+            alert("Preencha corretamente o campo de mensagem!");
+            document.getElementById('your-message').focus()
+            return false;
+        }
+
+        emailjs.send("service_c6jkvyc", "template_iz4t2ph", {
+            name: name,
+            company: company,
+            position: position,
+            email: email,
+            number: number,
+            message: message,
+        })
+            .then(function (response) {
+                emailjs.send("service_l08hdx9", "template_jn8a00j", {
+                    name: name,
+                    company: company,
+                    position: position,
+                    email: email,
+                    number: number,
+                    message: message,
+                })
+                    .then(function (response) {
+                        alert('E-mail enviado com sucesso!');
+                        location.reload()
+                    }, function (error) {
+                        console.log(error)
+                        alert('Erro ao enviar e-mail!');
+                        location.reload()
+                    });
+            }, function (error) {
+                console.log(error)
+                alert('Erro ao enviar e-mail!');
+                location.reload()
+            });
+    }
+
+    document.addEventListener('scroll', function () {
+        const scrollTop = window.scrollY;
+
+        const secao1 = document.getElementById('pagina_inicial').getBoundingClientRect().top - 55 + window.scrollY;
+        const secao2 = document.getElementById('pagina_texto1').getBoundingClientRect().top - 55 + window.scrollY;
+        const secao3 = document.getElementById('pagina_como_ajudar').getBoundingClientRect().top - 55 + window.scrollY;
+        const secao4 = document.getElementById('pagina_nossos_clientes').getBoundingClientRect().top - 55 + window.scrollY;
+        const secao5 = document.getElementById('pagina_quem_somos3').getBoundingClientRect().top - 55 + window.scrollY;
+        const secao6 = document.getElementById('pagina_formulario').getBoundingClientRect().top - 55 + window.scrollY;
+
+        if (scrollTop >= secao1 && scrollTop < secao2) {
+            var menu_pagina_inicial = document.getElementById('menu_pagina_inicial').classList
+            menu_pagina_inicial.add('menu_buttons_special');
+            menu_pagina_inicial.remove('menu_buttons');
+
+            var menu_pagina_texto1 = document.getElementById('menu_pagina_texto1').classList
+            menu_pagina_texto1.add('menu_buttons');
+            menu_pagina_texto1.remove('menu_buttons_special');
+
+            var menu_pagina_como_ajudar = document.getElementById('menu_pagina_como_ajudar').classList
+            menu_pagina_como_ajudar.add('menu_buttons');
+            menu_pagina_como_ajudar.remove('menu_buttons_special');
+
+            var menu_pagina_nossos_clientes = document.getElementById('menu_pagina_nossos_clientes').classList
+            menu_pagina_nossos_clientes.add('menu_buttons');
+            menu_pagina_nossos_clientes.remove('menu_buttons_special');
+
+            var menu_pagina_quem_somos3 = document.getElementById('menu_pagina_quem_somos3').classList
+            menu_pagina_quem_somos3.add('menu_buttons');
+            menu_pagina_quem_somos3.remove('menu_buttons_special');
+
+            var menu_pagina_formulario = document.getElementById('menu_pagina_formulario').classList
+            menu_pagina_formulario.add('menu_buttons');
+            menu_pagina_formulario.remove('menu_buttons_special');
+        }
+
+        if (scrollTop >= secao2 && scrollTop < secao3) {
+            var menu_pagina_inicial = document.getElementById('menu_pagina_inicial').classList
+            menu_pagina_inicial.add('menu_buttons');
+            menu_pagina_inicial.remove('menu_buttons_special');
+
+            var menu_pagina_texto1 = document.getElementById('menu_pagina_texto1').classList
+            menu_pagina_texto1.add('menu_buttons_special');
+            menu_pagina_texto1.remove('menu_buttons');
+
+            var menu_pagina_como_ajudar = document.getElementById('menu_pagina_como_ajudar').classList
+            menu_pagina_como_ajudar.add('menu_buttons');
+            menu_pagina_como_ajudar.remove('menu_buttons_special');
+
+            var menu_pagina_nossos_clientes = document.getElementById('menu_pagina_nossos_clientes').classList
+            menu_pagina_nossos_clientes.add('menu_buttons');
+            menu_pagina_nossos_clientes.remove('menu_buttons_special');
+
+            var menu_pagina_quem_somos3 = document.getElementById('menu_pagina_quem_somos3').classList
+            menu_pagina_quem_somos3.add('menu_buttons');
+            menu_pagina_quem_somos3.remove('menu_buttons_special');
+
+            var menu_pagina_formulario = document.getElementById('menu_pagina_formulario').classList
+            menu_pagina_formulario.add('menu_buttons');
+            menu_pagina_formulario.remove('menu_buttons_special');
+        }
+
+        if (scrollTop >= secao3 && scrollTop < secao4) {
+            var menu_pagina_inicial = document.getElementById('menu_pagina_inicial').classList
+            menu_pagina_inicial.add('menu_buttons');
+            menu_pagina_inicial.remove('menu_buttons_special');
+
+            var menu_pagina_texto1 = document.getElementById('menu_pagina_texto1').classList
+            menu_pagina_texto1.add('menu_buttons');
+            menu_pagina_texto1.remove('menu_buttons_special');
+
+            var menu_pagina_como_ajudar = document.getElementById('menu_pagina_como_ajudar').classList
+            menu_pagina_como_ajudar.add('menu_buttons_special');
+            menu_pagina_como_ajudar.remove('menu_buttons');
+
+            var menu_pagina_nossos_clientes = document.getElementById('menu_pagina_nossos_clientes').classList
+            menu_pagina_nossos_clientes.add('menu_buttons');
+            menu_pagina_nossos_clientes.remove('menu_buttons_special');
+
+            var menu_pagina_quem_somos3 = document.getElementById('menu_pagina_quem_somos3').classList
+            menu_pagina_quem_somos3.add('menu_buttons');
+            menu_pagina_quem_somos3.remove('menu_buttons_special');
+
+            var menu_pagina_formulario = document.getElementById('menu_pagina_formulario').classList
+            menu_pagina_formulario.add('menu_buttons');
+            menu_pagina_formulario.remove('menu_buttons_special');
+        }
+
+        if (scrollTop >= secao4 && scrollTop < secao5) {
+            var menu_pagina_inicial = document.getElementById('menu_pagina_inicial').classList
+            menu_pagina_inicial.add('menu_buttons');
+            menu_pagina_inicial.remove('menu_buttons_special');
+
+            var menu_pagina_texto1 = document.getElementById('menu_pagina_texto1').classList
+            menu_pagina_texto1.add('menu_buttons');
+            menu_pagina_texto1.remove('menu_buttons_special');
+
+            var menu_pagina_como_ajudar = document.getElementById('menu_pagina_como_ajudar').classList
+            menu_pagina_como_ajudar.add('menu_buttons');
+            menu_pagina_como_ajudar.remove('menu_buttons_special');
+
+            var menu_pagina_nossos_clientes = document.getElementById('menu_pagina_nossos_clientes').classList
+            menu_pagina_nossos_clientes.add('menu_buttons_special');
+            menu_pagina_nossos_clientes.remove('menu_buttons');
+
+            var menu_pagina_quem_somos3 = document.getElementById('menu_pagina_quem_somos3').classList
+            menu_pagina_quem_somos3.add('menu_buttons');
+            menu_pagina_quem_somos3.remove('menu_buttons_special');
+
+            var menu_pagina_formulario = document.getElementById('menu_pagina_formulario').classList
+            menu_pagina_formulario.add('menu_buttons');
+            menu_pagina_formulario.remove('menu_buttons_special');
+        }
+
+        if (scrollTop >= secao5 && scrollTop < secao6) {
+            var menu_pagina_inicial = document.getElementById('menu_pagina_inicial').classList
+            menu_pagina_inicial.add('menu_buttons');
+            menu_pagina_inicial.remove('menu_buttons_special');
+
+            var menu_pagina_texto1 = document.getElementById('menu_pagina_texto1').classList
+            menu_pagina_texto1.add('menu_buttons');
+            menu_pagina_texto1.remove('menu_buttons_special');
+
+            var menu_pagina_como_ajudar = document.getElementById('menu_pagina_como_ajudar').classList
+            menu_pagina_como_ajudar.add('menu_buttons');
+            menu_pagina_como_ajudar.remove('menu_buttons_special');
+
+            var menu_pagina_nossos_clientes = document.getElementById('menu_pagina_nossos_clientes').classList
+            menu_pagina_nossos_clientes.add('menu_buttons');
+            menu_pagina_nossos_clientes.remove('menu_buttons_special');
+
+            var menu_pagina_quem_somos3 = document.getElementById('menu_pagina_quem_somos3').classList
+            menu_pagina_quem_somos3.add('menu_buttons_special');
+            menu_pagina_quem_somos3.remove('menu_buttons');
+
+            var menu_pagina_formulario = document.getElementById('menu_pagina_formulario').classList
+            menu_pagina_formulario.add('menu_buttons');
+            menu_pagina_formulario.remove('menu_buttons_special');
+        }
+
+        if (scrollTop >= secao6) {
+            var menu_pagina_inicial = document.getElementById('menu_pagina_inicial').classList
+            menu_pagina_inicial.add('menu_buttons');
+            menu_pagina_inicial.remove('menu_buttons_special');
+
+            var menu_pagina_texto1 = document.getElementById('menu_pagina_texto1').classList
+            menu_pagina_texto1.add('menu_buttons');
+            menu_pagina_texto1.remove('menu_buttons_special');
+
+            var menu_pagina_como_ajudar = document.getElementById('menu_pagina_como_ajudar').classList
+            menu_pagina_como_ajudar.add('menu_buttons');
+            menu_pagina_como_ajudar.remove('menu_buttons_special');
+
+            var menu_pagina_nossos_clientes = document.getElementById('menu_pagina_nossos_clientes').classList
+            menu_pagina_nossos_clientes.add('menu_buttons');
+            menu_pagina_nossos_clientes.remove('menu_buttons_special');
+
+            var menu_pagina_quem_somos3 = document.getElementById('menu_pagina_quem_somos3').classList
+            menu_pagina_quem_somos3.add('menu_buttons');
+            menu_pagina_quem_somos3.remove('menu_buttons_special');
+
+            var menu_pagina_formulario = document.getElementById('menu_pagina_formulario').classList
+            menu_pagina_formulario.add('menu_buttons_special');
+            menu_pagina_formulario.remove('menu_buttons');
+        }
+    });
+
+    // Índice inicial dos slides ativos
+    let activeIndex = 0;
+
+    // Função para ativar os próximos 3 itens
+    function updateCarousel() {
+        const items = document.querySelectorAll('#customCarousel .carousel-item');
+        items.forEach((item, index) => {
+            item.classList.remove('active');
+            if (
+                index === activeIndex ||
+                index === (activeIndex + 1) % items.length ||
+                index === (activeIndex + 2) % items.length
+            ) {
+                item.classList.add('active');
+            }
+        });
+    }
+
+    // Próximo slide
+    function nextSlide() {
+        const items = document.querySelectorAll('#customCarousel .carousel-item');
+        activeIndex = (activeIndex + 1) % items.length;
+        updateCarousel();
+    }
+
+    // Slide anterior
+    function prevSlide() {
+        const items = document.querySelectorAll('#customCarousel .carousel-item');
+        activeIndex = (activeIndex - 1 + items.length) % items.length;
+        updateCarousel();
+    }
+
+    // Atualizar o carrossel a cada intervalo (autoplay)
+    // setInterval(nextSlide, 3000); // A cada 3 segundos</script>
+
+</html>
